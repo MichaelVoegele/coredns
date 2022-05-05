@@ -11,7 +11,7 @@ spec:
       name: openpaas.eu-central-1.aws.artifactory
     to:
       kind: DockerImage
-      # put some semantic version here
+      # put some semantic version here fooo
       name: ats-openpaas-cc-private-repo-docker.docker.artifactory.pink.eu-central-1.aws.openpaas.axa-cloud.com/openpaas/dns-relay:v1.2.3
   postCommit: {}
   resources:
