@@ -3,7 +3,7 @@ kind: BuildConfig
 metadata:
   labels:
     app: dns-relay
-  name: dns-relay-snapshot
+  name: dns-relay-release
 spec:
   failedBuildsHistoryLimit: 1
   output:
@@ -11,7 +11,8 @@ spec:
       name: openpaas.eu-central-1.aws.artifactory
     to:
       kind: DockerImage
-      name: ats-openpaas-cc-private-repo-docker.docker.artifactory.pink.eu-central-1.aws.openpaas.axa-cloud.com/openpaas/dns-relay:snapshot
+      # put some semantic version here
+      name: ats-openpaas-cc-private-repo-docker.docker.artifactory.pink.eu-central-1.aws.openpaas.axa-cloud.com/openpaas/dns-relay:v1.2.3
   postCommit: {}
   resources:
     limits:
