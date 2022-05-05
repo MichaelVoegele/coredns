@@ -1,31 +1,17 @@
-# FROM registry.redhat.io/rhel8/go-toolset:latest AS builder
 FROM registry.access.redhat.com/ubi8:latest AS builder
-
-# RUN dnf -y install go-toolset && go version
-
-WORKDIR /go/src/github.com/coredns/coredns
-COPY . .
-RUN ls -al
-RUN ls -al /go/src/github.com/coredns/coredns/
 
 ENV GO_VERSION=1.17.9 \
     PATH=${PATH}:/usr/local/go/bin
 
-# RUN set -x \
-#     # && rm -rf /usr/local/go \
-#     && curl -SL https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz -o go.tar.gz \
-#     && tar -C /usr/local -xzf go.tar.gz \
-#     # && export PATH=${PATH}:/usr/local/go/bin \
-#     && go version
+RUN set -x \
+    # && rm -rf /usr/local/go \ -> if there was a previous version of go
+    && curl -SL https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz -o /tmp/go.tar.gz \
+    && tar -C /usr/local -xzf /tmp/go.tar.gz \
+    && go version
 
-# RUN dnf -y install go-toolset && go version
-
-# RUN pwd && ls -al
-# RUN find / -type d -name coredns
-
-# WORKDIR /go/src/github.com/coredns/coredns
-# COPY . .
-# RUN ls -al
+WORKDIR /go/src/github.com/coredns/coredns
+COPY . .
+RUN ls -al
 
 # RUN GO111MODULE=on GOFLAGS=-mod=vendor go build -o coredns .
 # RUN go get github.com/coredns/alternate
