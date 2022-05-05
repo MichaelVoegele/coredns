@@ -11,17 +11,12 @@ RUN set -x \
 
 WORKDIR /go/src/github.com/coredns/coredns
 COPY . .
-RUN ls -al
 
-# RUN GO111MODULE=on GOFLAGS=-mod=vendor go build -o coredns .
-RUN go get github.com/coredns/alternate
+RUN ls -al && go get github.com/coredns/alternate && go build -mod=mod -o coredns .
+
 # RUN go install github.com/coredns/alternate@latest
-# RUN go mod vendor
-# RUN ls -al
 # RUN go generate
-
 # RUN GO111MODULE=on GOFLAGS=-mod=vendor go build -o coredns .
-RUN go build -mod=mod -o coredns .
 
 FROM registry.access.redhat.com/ubi8:latest
 COPY --from=builder /go/src/github.com/coredns/coredns/coredns /usr/bin/
