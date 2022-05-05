@@ -15,6 +15,7 @@ COPY . .
 RUN set -x \
     && ls -al \
     && go get github.com/coredns/alternate \
+    && go mod vendor \
     && go generate -mod=mod \
     && go build -mod=mod -o coredns .
 
