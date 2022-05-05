@@ -12,7 +12,10 @@ RUN set -x \
 WORKDIR /go/src/github.com/coredns/coredns
 COPY . .
 
-RUN ls -al && go get github.com/coredns/alternate && go build -mod=mod -o coredns .
+RUN set -x \
+    && ls -al \
+    && go get github.com/coredns/alternate \
+    && go build -mod=mod -o coredns .
 
 # RUN go install github.com/coredns/alternate@latest
 # RUN go generate
