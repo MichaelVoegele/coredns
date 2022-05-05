@@ -15,7 +15,7 @@ COPY . .
 RUN set -x \
     && ls -al \
     && go get github.com/coredns/alternate \
-    && go generate \
+    && go generate -mod=mod \
     && go build -mod=mod -o coredns .
 
 # RUN go install github.com/coredns/alternate@latest
