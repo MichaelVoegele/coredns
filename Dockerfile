@@ -14,22 +14,22 @@ COPY . .
 RUN ls -al
 
 # RUN GO111MODULE=on GOFLAGS=-mod=vendor go build -o coredns .
-# RUN go get github.com/coredns/alternate
+RUN go get github.com/coredns/alternate
 # RUN go install github.com/coredns/alternate@latest
 # RUN go mod vendor
 # RUN ls -al
 # RUN go generate
 
 # RUN GO111MODULE=on GOFLAGS=-mod=vendor go build -o coredns .
-# RUN go build -mod=mod -o coredns .
+RUN go build -mod=mod -o coredns .
 
-# FROM registry.access.redhat.com/ubi8:latest
-# COPY --from=builder /go/src/github.com/coredns/coredns/coredns /usr/bin/
+FROM registry.access.redhat.com/ubi8:latest
+COPY --from=builder /go/src/github.com/coredns/coredns/coredns /usr/bin/
 
-# RUN dnf -y install bind-utils
+RUN dnf -y install bind-utils
 
-# ENTRYPOINT ["/usr/bin/coredns"]
+ENTRYPOINT ["/usr/bin/coredns"]
 
-# LABEL io.k8s.display-name="CoreDNS" \
-#       io.k8s.description="CoreDNS delivers the DNS and Discovery Service for a Kubernetes cluster." \
-#       maintainer="dev@lists.openshift.redhat.com"
+LABEL io.k8s.display-name="CoreDNS" \
+      io.k8s.description="CoreDNS delivers the DNS and Discovery Service for a Kubernetes cluster." \
+      maintainer="OpenPaaS"
